@@ -1,0 +1,84 @@
+/*--------------------------------------------
+                    全体
+----------------------------------------------*/
+
+body {
+    background-color: rgb(10, 38, 44);
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 32px;
+    font-family: 'Yu Mincho Light', 'YuMincho', 'Yu Mincho', '游明朝体', sans-serif;
+}
+
+/*--------------------------------------------
+                    ヘッダー
+----------------------------------------------*/
+
+header {
+    text-align: center;
+}
+
+picture img {
+    width: 100%;
+    max-width: 1200px;
+    vertical-align: bottom;
+}
+
+/*--------------------------------------------
+                    メイン
+----------------------------------------------*/
+
+main {
+    margin: 1.2rem;
+}
+
+p {
+    font-size: 200%;
+    text-align: center;
+    height: 150px;
+}
+
+ul {
+    padding: 0;
+    display: table;
+    /* 定義 */
+    table-layout: fixed;
+    width: 80%;
+    min-width: 300px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+li {
+    text-align: center;
+    list-style-type: none;
+    padding: 10px;
+    border: 7px double #000000;
+    background-color: #fdfdfb;
+    display: table-cell;
+    /* 定義 */
+    cursor: pointer;
+}
+
+li:hover {
+    background: #1a1608;
+    color: #fdfdfb;
+}
+
+/*--------------------------------------------
+                    フッター
+----------------------------------------------*/
+
+footer {
+    background-color: rgb(150, 137, 95);
+    padding-top: 0.2rem;
+    padding-bottom: 1.4rem;
+    text-align: center;
+}
+
+#copyright {
+    color: #333123;
+    text-align: center;
+    font-size: 0.82rem;
+}

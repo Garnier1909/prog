@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <title>お御籤（おみくじ）</title>
+</head>
+
+<body>
+
+    <header>
+        <picture>
+            <img src="images/kyoto.jpg" srcset="images/kyoto.jpg" alt="OMIKUJI">
+        </picture>
+    </header>
+
+    <main>
+        <ul>
+            <li id="pull">クリックで運勢を占う</li>
+        </ul>
+        <p id="echo">
+
+        </p>
+
+        <p id="det">
+
+        </p>
+
+    </main>
+
+    <footer>
+        <!--コピーライトを挿入-->
+        <div id="copyright">
+            <small>Copyright &copy; 2021 Reika Inoue. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <script>
+
+         //Clickイベントのブロック
+         const pull = document.querySelector("#pull");
+        pull.onclick = function () {
+
+            //乱数を作る
+            const num = Math.ceil(Math.random() * 5);
+            var x = "";             //結果の表示
+            var EXP = [5];          //解説（乱数を作る用）
+            var Exp = [5];          //解説（記号に変換する用）
+            var exp = [5];          //解説（実際に表示する用）
+
+            /* MEMO
+            ・ceil=端数繰り上げ(他：floor（端数切り下げ）、round（四捨五入）)
+            ・5の部分に100を入れると、乱数も1から100になる
+            */
+
+            ////////////////////結果をxとa~fに割り当て////////////////////////
+
+            for (let i = 0; i < 6; i++) {
+                Exp[i] = calc(EXP[i]);
+            }
+            
+            function calc(p) {
+                if (num == 1) {
+                    x = "大吉";
+                    p = Math.ceil(Math.random() * 2) + 3;   //3〜５
+
+                }
+                else if (num == 2) {
+                    x = "中吉";
+                    p = Math.ceil(Math.random() * 3) + 1;   //２〜４
+
+                }
+                else if (num == 3) {
+                    x = "小吉";
+                    p = Math.ceil(Math.random() * 2) + 1;   //２〜３
+
+                }
+                else if (num == 4) {
+                    x = "吉";
+                    p = Math.ceil(Math.random() * 3);        //１〜３
+                }
+                else if (num == 5) {
+                    x = "凶";
+                    p = Math.ceil(Math.random() * 2);       //１〜２
+                }
+                return p;
+            }
+
+            ///////////////数値から記号に変換（願事などの部分の結果を毎回変える）/////////////////
+
+            for (let j = 0; j < 6; j++) {
+                exp[j] = val(Exp[j]);
+            }
+
+            function val(q) {
+                if (q == 1) {
+                    q = "♦︎♢♢♢♢";
+                } else if (q == 2) {
+                    q = "♦︎♦︎♢♢♢";
+                } else if (q == 3) {
+                    q = "♦︎♦︎♦︎♢♢";
+                } else if (q == 4) {
+                    q = "♦︎♦︎♦︎♦︎♢";
+                } else if (q == 5) {
+                    q = "♦︎♦︎♦︎♦︎♦︎";
+                }
+                return q;
+            }
+
+            //////////////////////////結果の表示////////////////////////////////////
+
+            //echo部分に結果を表示
+            const result = document.querySelector('#echo');
+            result.style.color = "#fdfdfb";
+            result.innerHTML = x;
+
+            //結果の詳細部分を表示
+            const detail = document.querySelector('#det');
+            detail.style.color = "#fdfdfb";
+            detail.style.fontSize = "20px";
+            detail.innerHTML =
+                "願事：" + (exp[0]) + "　　　" +
+                "失物：" + (exp[1]) + "　　　" +
+                "商売：" + (exp[2]) + "<br>" +
+                "学問：" + (exp[3]) + "　　　" +
+                "旅行：" + (exp[4]) + "　　　" +
+                "待人：" + (exp[5]);
+
+            //ボタンの表示を変える
+            pull.innerHTML = "もう一度やり直す";
+
+        }
+
+    </script>
+</body>
+
+</html>
