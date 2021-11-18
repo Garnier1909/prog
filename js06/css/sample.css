@@ -1,0 +1,120 @@
+/*--------------------------------------------
+                    全体
+----------------------------------------------*/
+
+body {
+    background-color: #faf1f0;
+    margin: 0px;
+    padding: 0px;
+    padding: 0;
+    text-align: left;
+    font-family: serif;
+    
+}
+
+/*--------------------------------------------
+                    ヘッダー
+----------------------------------------------*/
+
+header {
+    text-align: center;
+}
+
+header img {
+    min-width: 100px;
+    max-width: 1200px;
+    vertical-align: top;
+    text-align:center;
+}
+
+/*--------------------------------------------
+                    メイン
+----------------------------------------------*/
+
+main {
+    margin: 1.2rem;
+    background-color: #faf1f0;
+    width: 1200px;
+    margin-left: auto;
+   margin-right: auto;
+}
+
+p {
+    font-size: 200%;
+    text-align: left;
+    height: 150px;
+}
+
+h3{
+    color:#b99562;
+    margin-left: 1.2rem;
+}
+
+.wrap {
+    height: 100%;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+.button {
+    margin-left: 1.2rem;
+    width: 140px;
+    height: 45px;
+    font-family: serif;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #faf1f0;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.button:hover {
+    background-color: #000;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    color: #faf1f0;
+    transform: scale(1.02);
+}
+
+
+#music ul {
+    padding: 0;
+    display: table;
+    /* 定義 */
+    width: 80%;
+    min-width: 300px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#music li {
+    text-align: left;
+    list-style-type: none;
+    padding: 10px;
+    border: none;
+    background-color: #faf1f0;
+    /* 定義 */
+    cursor: pointer;
+}
+
+#music li:hover {
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    transform: scale(1.02);
+}
+
+#list {
+    padding-bottom: 10px;
+
+}
+
+footer {
+    font-size: 10px;
+    text-align: center;
+    color: #c0afaf;
+}
