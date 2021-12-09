@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/sample.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap');
+  </style>
+  <title>クリスマス雑学クイズ</title>
+</head>
+
+<body>
+
+  <header>
+    <h1></h1>
+  </header>
+
+  <main>
+    <p id="quest">ここに問題が出題されます</p>
+    <p>
+      <input type="radio" name="toi" value="1"><span id="toi1">選択肢１</span>
+      <input type="radio" name="toi" value="2"><span id="toi2">選択肢２</span>
+      <input type="radio" name="toi" value="3"><span id="toi3">選択肢３</span>
+    </p>
+
+    <h4>過去の正答率</h4>
+    <button class="button">
+      <div id="reset">リセット</div>
+    </button>
+
+    <table id="exp">
+    </table>
+
+  </main>
+
+  <footer>Christmas Trivia Quiz</footer>
+  <script>
+    //ここから記述領域［START］
+    var toinum = 1;   //第◯問目
+
+    $("h1").text("クリスマス雑学クイズ　" + "第" + toinum + "問");
+
+    //以下に配列を記述してください。
+    //問題文[配列]
+    const qs = [
+      "クリスマスツリーに飾る球は、何を表したもの？",
+      "現在のサンタのイメージを広く定着させた企業は？",
+      "キリストが生まれた場所は？",
+      "クリスマスリースは何のためにある？",
+      "サンタのそりを引っ張るトナカイは全部で何頭？",
+      "日本でクリスマスケーキを食べることを普及させた企業は？"
+    ];
+
+    //回答選択肢[多重配列]
+    const toi = [
+      ["りんご", "泡", "星"],
+      ["任天堂", "コカ・コーラ", "KFC"],
+      ["森", "山の上", "家畜小屋"],
+      ["魔除け", "飾り", "縁起物"],
+      ["6頭", "8頭", "12頭"],
+      ["ロッテ", "不二家", "明治"]
+    ];
+
+
+    //答え[配列]
+    const ans = [1, 2, 3, 1, 2, 2];
+
+    //1.最初の問題文＆回答選択肢＆回答値を設定
+    var i = 0;
+    $("#quest").text(qs[i]);
+
+    ////解答選択肢
+    $("#toi1").html(toi[i][0]);
+    $("#toi2").html(toi[i][1]);
+    $("#toi3").html(toi[i][2]);
+
+    //正解数をカウントする変数
+    var correct = 0;
+
+    //2.ラジオボタンをクリックしたらイベント発生！(クリックイベント)
+    $("[name=toi]").on("click", function () {
+      const v = $(this).val();    //どの選択肢を押したか
+
+      if (i < toi.length - 1) {
+
+        toinum++;               //問題番号を変える
+
+        if (v == ans[i]) {        //選択した番号と答えの番号が合っていた場合の処理
+          correct++;
+          $("h1").text("正解！　" + "第" + toinum + "問");
+        } else {
+          $("h1").text("不正解...　" + "第" + toinum + "問");
+        }
+
+        i++;  //配列に入れるiが1プラスされる
+
+        //問題分の提示
+        $("#quest").text(qs[i]);
+        //解答選択肢
+        $("#toi1").html(toi[i][0]);
+        $("#toi2").html(toi[i][1]);
+        $("#toi3").html(toi[i][2]);
+
+
+      } else if (i == toi.length - 1) {
+        if (v == ans[i]) {        //選択した番号と答えの番号が合っていた場合の処理
+          correct++;
+        }
+        alert("終了！　正解数：" + correct + "問");
+        const score = Math.round(correct / (i + 1) * 100)
+        $("h1").text("正答率：" + score + "%");
+        i++;
+
+        //結果をローカルストレージに保存
+        function nowDate() {
+          const now = new Date();
+          const year = now.getFullYear();
+          var month = now.getMonth() + 1;  //月は必ず +１をする（0から1月が始まる）
+          var date = now.getDate();
+          const day = now.getDay();  //曜日[0=日曜日,1=月曜日...]
+          var h = now.getHours();
+          var m = now.getMinutes();
+          //const s = now.getSeconds();
+          var yobi = "";
+
+          //二桁にする
+          month = ('0' + month).slice(-2);
+          date = ('0' + date).slice(-2);
+          h = ('0' + h).slice(-2);
+          m = ('0' + m).slice(-2);
+
+          if (day == 0) {
+            yobi = "日 "
+          } else if (day == 1) {
+            yobi = "月 ";
+          } else if (day == 2) {
+            yobi = "火 ";
+          } else if (day == 3) {
+            yobi = "水 ";
+          } else if (day == 4) {
+            yobi = "木 ";
+          } else if (day == 5) {
+            yobi = "金 ";
+          } else {
+            yobi = "土 ";
+          }
+
+          return (year + "/" + month + "/" + date + " " + yobi + h + ":" + m /*+ ":" + s + ""*/);
+
+        }
+        const date = nowDate();
+        localStorage.setItem(date, score + "%");
+        //一覧表示に追加
+        const html = '<tr><th>' + date + '</th><td>' + score + "%" + '</td></tr>'
+        $("#exp").append(html);
+      } else {
+        alert("再読み込みでもう一回！");
+      }
+
+    });
+
+    //3.ページ読み込み：保存データ取得表示
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);            //key名
+      const value = localStorage.getItem(key);    //value名
+
+      //一覧表示に追加
+      const html = '<tr><th>' + key + '</th><td>' + value + '</td></tr>'
+      $("#exp").append(html);
+    }
+
+    //リセットクリックイベント
+    $("#reset").on("click", function () {
+      localStorage.clear();
+      $("#exp").empty();
+
+    });
+
+
+
+
+
+
+//ここまでが記述領域［END］
+  </script>
+</body>
+
+</html>
