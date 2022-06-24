@@ -1,0 +1,96 @@
+body {
+    max-width: 1100px;
+    background-color: #153446;
+    text-align: left;
+    margin:0 auto;
+}
+
+main {
+    color: #edf6fc;
+    font-family: 'Sawarabi Gothic', sans-serif;
+    width: 100%;
+}
+
+picture img {
+    width: 100%;
+    min-width: 100px;
+    max-width: 1100px;
+    vertical-align: top;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccb985ec;
+}
+
+
+midashi {
+    font-size: x-large;
+    font-family: serif;
+    font-weight: bolder;
+}
+
+#uname, #text, #output {
+    background-color: #2a3f4b;
+    color: #edf6fc;
+    font-family: 'Sawarabi Gothic', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#text {
+    width: 90%;
+}
+
+
+
+button {
+    font-size: 15px;
+    font-family: serif;
+    display: block;
+    border: none;
+    text-decoration: none;
+    width: 140px;
+    padding: 0.8em;
+    text-align: center;
+    color: #edf6fc;
+    border-radius: 4px;
+    background: #bb6e75e5;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #362022e5;
+    color: #edf6fc;
+}
+
+#bef{
+    width: 50%;
+    float: left;
+}
+
+
+#log {
+    width: 50%;
+    float:left;
+    margin-bottom: 20px;
+}
+
+#output {
+    border: 4px double #bbb39da6;
+    background-color: #2a3f4b;
+    color: #edf6fc;
+    font-family: 'Sawarabi Gothic', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+name_send {
+    color: #ccb985ec;
+    font-weight: bold;
+}
+
+date {
+    font-size: 12px;
+    color: #92835ba9;
+
+}

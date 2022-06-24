@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap');
+    </style>
+    <title>Chatting Lounge</title>
+</head>
+
+<body>
+    <header>
+        <picture>
+            <img src="images/break.jpg" srcset="images/break.jpg" alt="Chatting Lounge">
+        </picture>
+    </header>
+    <!-- コンテンツ表示画面 -->
+    <main>
+        <div>
+            <div id="bef">
+                <div id="name">
+                    <midashi>Name</midashi><br> <input type="text" id="uname">
+                </div>
+                <div>
+                    <midashi>Message</midashi><br><textarea id="text" cols="30" rows="10"></textarea>
+                    <button id="send">Send Message</button>
+                </div>
+            </div>
+            <div id="log">
+                <midashi>Log</midashi>
+                <div id="output" style="overflow: auto; height: 400px;"></div>
+            </div>
+        </div>
+        <!--/ コンテンツ表示画面 -->
+
+
+
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- JQuery -->
+
+
+        <!---------------------------------------------** 以下Firebase **---------------------------------------------->
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+            import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+                from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyDkF7ivmLBDLwHwukQgBzhOxWzGzDXf6Og",
+                authDomain: "sample-eacaa.firebaseapp.com",
+                projectId: "sample-eacaa",
+                storageBucket: "sample-eacaa.appspot.com",
+                messagingSenderId: "507464732956",
+                appId: "1:507464732956:web:7e56bde1eb22f837802ad9"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+            const dbRef = ref(db, "chat");
+
+
+            //////////////////////////////////日時の取得用スクリプト//////////////////////////////////
+            function nowDate() {
+                const now = new Date();
+                const year = now.getFullYear();
+                var month = now.getMonth() + 1;  //月は必ず +１をする（0から1月が始まる）
+                var date = now.getDate();
+                const day = now.getDay();  //曜日[0=日曜日,1=月曜日...]
+                var h = now.getHours();
+                var m = now.getMinutes();
+                //const s = now.getSeconds();
+                var yobi = "";
+
+                //二桁にする
+                month = ('0' + month).slice(-2);
+                date = ('0' + date).slice(-2);
+                h = ('0' + h).slice(-2);
+                m = ('0' + m).slice(-2);
+
+                if (day == 0) {
+                    yobi = "日 "
+                } else if (day == 1) {
+                    yobi = "月 ";
+                } else if (day == 2) {
+                    yobi = "火 ";
+                } else if (day == 3) {
+                    yobi = "水 ";
+                } else if (day == 4) {
+                    yobi = "木 ";
+                } else if (day == 5) {
+                    yobi = "金 ";
+                } else {
+                    yobi = "土 ";
+                }
+
+                return (year + "/" + month + "/" + date + " " + yobi + h + ":" + m /*+ ":" + s + ""*/);
+
+            }
+
+
+            //////////////////////////////////送信を押した際の流れ//////////////////////////////////
+
+            $("#send").on("click", function () {
+                const msg = {
+                    now: nowDate(),     //日時の取得
+                    uname: $("#uname").val(),
+                    text: $("#text").val()
+                }
+                const newPostRef = push(dbRef);  //ユニークキーを生成
+                set(newPostRef, msg);
+            });
+
+            //////////////////////////////////データの処理・表示//////////////////////////////////
+
+            //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
+            onChildAdded(dbRef, function (data) {
+                const now = nowDate();     //日時の取得
+                const msg = data.val();    //オブジェクトデータを取得し、変数msgに代入
+                const key = data.key;      //データのユニークキー（削除や更新に使用可能）
+                //表示用テキスト・HTMLを作成
+                let h = '<p>';
+                h += '<name_send>' + msg.uname + '</name_send>';
+                h += "　";
+                h += '<date>' + msg.now + '</date>';
+                h += '<br>';
+                h += msg.text;
+                h += '<br>';
+                h += '</p>';
+                $("#output").append(h); //#outputの最後に追加
+            });
+
+
+        </script>
+    </main>
+</body>
+
+</html>
