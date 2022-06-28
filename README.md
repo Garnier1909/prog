@@ -1,3 +1,2 @@
 # prog
-HTML・CSS・Javascriptで作成したプログラミングの習作・Webアプリケーション等を置いています。
-近日整頓予定。
+HTML・CSS・Javascriptで作成したプログラミング作品の習作・Webアプリケーション等を置いています。
